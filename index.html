@@ -523,10 +523,171 @@
         }
 
         /* Hero Content */
-        .hero__content {
-            text-align: center;
-            z-index: 1;
+        .hero__wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4rem;
+            width: 100%;
+            max-width: 1400px;
             padding: 2rem;
+            z-index: 1;
+        }
+
+        /* Hero Photo Section */
+        .hero__photo-container {
+            position: relative;
+            flex-shrink: 0;
+            opacity: 0;
+            animation: fadeInLeft 1s ease forwards;
+            animation-delay: 0.2s;
+        }
+
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .hero__photo-wrapper {
+            position: relative;
+            width: 350px;
+            height: 450px;
+        }
+
+        /* Glowing accent shape behind photo */
+        .hero__photo-accent {
+            position: absolute;
+            top: 50%;
+            left: -20px;
+            transform: translateY(-50%);
+            width: 280px;
+            height: 400px;
+            background: linear-gradient(180deg, var(--color-accent) 0%, rgba(var(--color-accent-rgb), 0.3) 100%);
+            border-radius: 140px 140px 80px 80px;
+            z-index: 0;
+            animation: pulseGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% {
+                box-shadow: 0 0 40px rgba(var(--color-accent-rgb), 0.3),
+                            0 0 80px rgba(var(--color-accent-rgb), 0.15);
+            }
+            50% {
+                box-shadow: 0 0 60px rgba(var(--color-accent-rgb), 0.5),
+                            0 0 120px rgba(var(--color-accent-rgb), 0.25);
+            }
+        }
+
+        /* Photo frame with gradient border */
+        .hero__photo-frame {
+            position: relative;
+            width: 300px;
+            height: 420px;
+            border-radius: 150px 150px 60px 60px;
+            padding: 4px;
+            background: linear-gradient(180deg, var(--color-accent), rgba(var(--color-accent-rgb), 0.2));
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .hero__photo {
+            width: 100%;
+            height: 100%;
+            border-radius: 148px 148px 58px 58px;
+            object-fit: cover;
+            object-position: top center;
+            filter: grayscale(20%) contrast(1.05);
+            transition: all var(--transition-normal);
+        }
+
+        .hero__photo-frame:hover .hero__photo {
+            filter: grayscale(0%) contrast(1.1);
+            transform: scale(1.02);
+        }
+
+        /* Floating decorative elements */
+        .hero__photo-decoration {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(var(--color-accent-rgb), 0.2);
+            backdrop-filter: blur(10px);
+            z-index: 2;
+        }
+
+        .hero__photo-decoration--1 {
+            top: 20px;
+            right: -10px;
+            width: 60px;
+            height: 60px;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .hero__photo-decoration--2 {
+            bottom: 80px;
+            left: -30px;
+            width: 40px;
+            height: 40px;
+            animation: float 5s ease-in-out infinite;
+            animation-delay: -1s;
+        }
+
+        .hero__photo-decoration--3 {
+            bottom: 40px;
+            right: -20px;
+            width: 25px;
+            height: 25px;
+            background: var(--color-accent);
+            animation: float 3s ease-in-out infinite;
+            animation-delay: -2s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-15px) rotate(5deg);
+            }
+        }
+
+        /* Code/tech badge on photo */
+        .hero__photo-badge {
+            position: absolute;
+            bottom: 30px;
+            right: -40px;
+            background: rgba(10, 25, 47, 0.95);
+            border: 1px solid rgba(var(--color-accent-rgb), 0.3);
+            border-radius: 12px;
+            padding: 0.75rem 1.25rem;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.75rem;
+            color: var(--color-accent);
+            z-index: 3;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            animation: fadeInUp 0.8s ease forwards;
+            animation-delay: 1.2s;
+            opacity: 0;
+        }
+
+        .hero__photo-badge::before {
+            content: '>';
+            margin-right: 0.5rem;
+            color: var(--color-text-secondary);
+        }
+
+        .hero__content {
+            text-align: left;
+            z-index: 1;
+            flex: 1;
+            max-width: 600px;
         }
 
         .hero__greeting {
@@ -539,11 +700,11 @@
             margin-bottom: 1.5rem;
             opacity: 0;
             animation: fadeInUp 0.8s ease forwards;
-            animation-delay: 0.2s;
+            animation-delay: 0.4s;
         }
 
         .hero__name {
-            font-size: clamp(3rem, 10vw, 7rem);
+            font-size: clamp(2.5rem, 8vw, 5rem);
             font-weight: 900;
             letter-spacing: -0.03em;
             line-height: 1;
@@ -554,28 +715,28 @@
             background-clip: text;
             opacity: 0;
             animation: fadeInUp 0.8s ease forwards;
-            animation-delay: 0.4s;
+            animation-delay: 0.6s;
         }
 
         .hero__title {
             font-family: var(--font-display);
-            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            font-size: clamp(1.1rem, 2.5vw, 1.5rem);
             font-weight: 600;
             color: var(--color-text);
             margin-bottom: 1rem;
             opacity: 0;
             animation: fadeInUp 0.8s ease forwards;
-            animation-delay: 0.6s;
+            animation-delay: 0.8s;
         }
 
         .hero__tagline {
-            font-size: clamp(1rem, 2vw, 1.25rem);
+            font-size: clamp(0.95rem, 1.8vw, 1.15rem);
             color: var(--color-text-secondary);
-            max-width: 600px;
-            margin: 0 auto 2.5rem;
+            max-width: 500px;
+            margin-bottom: 2.5rem;
             opacity: 0;
             animation: fadeInUp 0.8s ease forwards;
-            animation-delay: 0.8s;
+            animation-delay: 1s;
         }
 
         .hero__tagline span {
@@ -586,12 +747,12 @@
         /* Social Links */
         .hero__social {
             display: flex;
-            justify-content: center;
+            justify-content: flex-start;
             gap: 1.5rem;
-            margin-bottom: 3rem;
+            margin-bottom: 2rem;
             opacity: 0;
             animation: fadeInUp 0.8s ease forwards;
-            animation-delay: 1s;
+            animation-delay: 1.2s;
         }
 
         .social-link {
@@ -755,9 +916,93 @@
         /* ================================
            Responsive Design
         ================================ */
+        @media (max-width: 1024px) {
+            .hero__wrapper {
+                gap: 3rem;
+            }
+
+            .hero__photo-wrapper {
+                width: 280px;
+                height: 380px;
+            }
+
+            .hero__photo-accent {
+                width: 220px;
+                height: 320px;
+            }
+
+            .hero__photo-frame {
+                width: 240px;
+                height: 350px;
+            }
+        }
+
         @media (max-width: 768px) {
             .container {
                 padding: 0 1.5rem;
+            }
+
+            .hero__wrapper {
+                flex-direction: column;
+                text-align: center;
+                gap: 2.5rem;
+            }
+
+            .hero__content {
+                text-align: center;
+                max-width: 100%;
+            }
+
+            .hero__tagline {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .hero__social {
+                justify-content: center;
+            }
+
+            .hero__photo-wrapper {
+                width: 220px;
+                height: 300px;
+            }
+
+            .hero__photo-accent {
+                width: 180px;
+                height: 260px;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+
+            .hero__photo-frame {
+                width: 200px;
+                height: 280px;
+                margin: 0 auto;
+            }
+
+            .hero__photo-badge {
+                right: -20px;
+                bottom: 20px;
+                font-size: 0.65rem;
+                padding: 0.5rem 1rem;
+            }
+
+            .hero__photo-decoration--1 {
+                width: 40px;
+                height: 40px;
+                right: 0;
+            }
+
+            .hero__photo-decoration--2 {
+                width: 30px;
+                height: 30px;
+                left: -15px;
+            }
+
+            .hero__photo-decoration--3 {
+                width: 20px;
+                height: 20px;
+                right: -10px;
             }
 
             .hero__name {
@@ -2215,38 +2460,62 @@
         <!-- Particles Container -->
         <div class="particles" id="particles"></div>
 
-        <!-- Hero Content -->
-        <div class="hero__content">
-            <p class="hero__greeting">Welcome to my portfolio</p>
-            <h1 class="hero__name">ADAM DAOUDI</h1>
-            <h2 class="hero__title">Data Science Engineering Student</h2>
-            <p class="hero__tagline">
-                Passionate about <span>Deep Learning</span> & <span>Statistical Modeling</span>
-            </p>
-            
-            <!-- Social Links -->
-            <div class="hero__social">
-                <a href="https://www.linkedin.com/in/adam-daoudi-27bb92256/" 
-                   class="social-link" 
-                   target="_blank" 
-                   rel="noopener noreferrer"
-                   aria-label="LinkedIn Profile">
-                    <i class="fab fa-linkedin-in"></i>
-                </a>
-                <a href="https://github.com/adam04-D" 
-                   class="social-link" 
-                   target="_blank" 
-                   rel="noopener noreferrer"
-                   aria-label="GitHub Profile">
-                    <i class="fab fa-github"></i>
-                </a>
-                <a href="https://sardia.me" 
-                   class="social-link" 
-                   target="_blank" 
-                   rel="noopener noreferrer"
-                   aria-label="Personal Website">
-                    <i class="fas fa-globe"></i>
-                </a>
+        <!-- Hero Wrapper (Photo + Content) -->
+        <div class="hero__wrapper">
+            <!-- Hero Photo -->
+            <div class="hero__photo-container">
+                <div class="hero__photo-wrapper">
+                    <!-- Glowing accent shape -->
+                    <div class="hero__photo-accent"></div>
+                    
+                    <!-- Photo frame -->
+                    <div class="hero__photo-frame">
+                        <img src="assets/adam-photo.png" alt="Adam Daoudi" class="hero__photo">
+                    </div>
+                    
+                    <!-- Floating decorations -->
+                    <div class="hero__photo-decoration hero__photo-decoration--1"></div>
+                    <div class="hero__photo-decoration hero__photo-decoration--2"></div>
+                    <div class="hero__photo-decoration hero__photo-decoration--3"></div>
+                    
+                    <!-- Tech badge -->
+                    <div class="hero__photo-badge">model.fit()</div>
+                </div>
+            </div>
+
+            <!-- Hero Content -->
+            <div class="hero__content">
+                <p class="hero__greeting">Welcome to my portfolio</p>
+                <h1 class="hero__name">ADAM DAOUDI</h1>
+                <h2 class="hero__title">Data Science Engineering Student</h2>
+                <p class="hero__tagline">
+                    Passionate about <span>Deep Learning</span> & <span>Statistical Modeling</span>
+                </p>
+                
+                <!-- Social Links -->
+                <div class="hero__social">
+                    <a href="https://www.linkedin.com/in/adam-daoudi-27bb92256/" 
+                       class="social-link" 
+                       target="_blank" 
+                       rel="noopener noreferrer"
+                       aria-label="LinkedIn Profile">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="https://github.com/adam04-D" 
+                       class="social-link" 
+                       target="_blank" 
+                       rel="noopener noreferrer"
+                       aria-label="GitHub Profile">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://sardia.me" 
+                       class="social-link" 
+                       target="_blank" 
+                       rel="noopener noreferrer"
+                       aria-label="Personal Website">
+                        <i class="fas fa-globe"></i>
+                    </a>
+                </div>
             </div>
         </div>
 
