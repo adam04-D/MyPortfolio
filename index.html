@@ -595,6 +595,17 @@
             background: linear-gradient(180deg, var(--color-accent), rgba(var(--color-accent-rgb), 0.2));
             z-index: 1;
             overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero__photo-inner {
+            width: 100%;
+            height: 100%;
+            border-radius: 148px 148px 58px 58px;
+            overflow: hidden;
+            background: var(--color-primary-light);
         }
 
         .hero__photo {
@@ -605,6 +616,7 @@
             object-position: top center;
             filter: grayscale(20%) contrast(1.05);
             transition: all var(--transition-normal);
+            display: block;
         }
 
         .hero__photo-frame:hover .hero__photo {
@@ -2470,7 +2482,9 @@
                     
                     <!-- Photo frame -->
                     <div class="hero__photo-frame">
-                        <img src="assets/adam.png" alt="Adam Daoudi" class="hero__photo">
+                        <div class="hero__photo-inner">
+                            <img src="./assets/adam.png" alt="Adam Daoudi" class="hero__photo">
+                        </div>
                     </div>
                     
                     <!-- Floating decorations -->
